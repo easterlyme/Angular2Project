@@ -14,3 +14,29 @@
     <li><strong>Hot module replacement</strong>. In development mode, you don't even need to reload the page after making most changes. Within seconds of saving changes to files, your Angular 2 app will be rebuilt and a new instance injected is into the page.</li>
     <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and the <code>webpack</code> build tool produces minified static CSS and JavaScript files.</li>
 </ul>
+
+<h1 *ngIf="!givenName">Anonymous</h1>
+<h1 *ngIf="givenName">{{givenName}}!</h1>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <span *ngIf="apiCallContents">{{apiCallContents}}</span>
+        <p>Login with Username/Password</p>
+        <p style="color: red; font-weight: bold" *ngIf="loginFailed">
+            Login wasn't successfull.
+        </p>
+        <div class="form-group">
+            <label>Username</label>
+            <input class="form-control" [(ngModel)]="userName">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input class="form-control" type="password" [(ngModel)]="password">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default" (click)="loginWithPassword()">Login</button>
+            <button class="btn btn-default" (click)="logout()">Logout</button>
+            <button class="btn btn-default" (click)="apiCall()">User Info</button>
+        </div>
+    </div>
+</div>

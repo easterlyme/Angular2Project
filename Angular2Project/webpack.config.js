@@ -7,17 +7,17 @@ var allFilenamesExceptJavaScript = /\.(?!js(\?|$))([^.]+(\?|$))/;
 
 // Configuration in common to both client-side and server-side bundles
 var sharedConfig = {
-    resolve: { extensions: [ '', '.js', '.ts' ] },
+    resolve: { extensions: [ '.js', '.ts' ] },
     output: {
         filename: '[name].js',
         publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
         loaders: [
-            { test: /\.ts$/, include: /ClientApp/, loader: 'ts', query: { silent: true } },
-            { test: /\.html$/, loader: 'raw' },
-            { test: /\.css$/, loader: 'to-string!css' },
-            { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: 'url', query: { limit: 25000 } }
+            { test: /\.ts$/, include: /ClientApp/, loader: 'ts-loader', query: { silent: true } },
+            { test: /\.html$/, loader: 'raw-loader' },
+            { test: /\.css$/, loader: 'to-string-loader!css-loader' },
+            { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: 'url-loader', query: { limit: 25000 } }
         ]
     }
 };
@@ -34,7 +34,7 @@ var clientBundleConfig = merge(sharedConfig, {
         })
     ].concat(isDevBuild ? [] : [
         // Plugins that apply in production builds only
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin()
     ])
 });

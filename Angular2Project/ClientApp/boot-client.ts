@@ -1,4 +1,5 @@
 import 'angular2-universal-polyfills/browser';
+import './__2.1.1.workaround.ts'; // temporary until 2.1.1 things are patched in Core
 import { enableProdMode } from '@angular/core';
 import { platformUniversalDynamic } from 'angular2-universal';
 import { AppModule } from './app/app.module';
@@ -14,9 +15,13 @@ if (module['hot']) {
 
 // Boot the application, either now or when the DOM content is loaded
 const platform = platformUniversalDynamic();
-const bootApplication = () => { platform.bootstrapModule(AppModule); };
+const bootApplication = () => {
+    platform.bootstrapModule(AppModule); };
+
 if (document.readyState === 'complete') {
     bootApplication();
 } else {
-    document.addEventListener('DOMContentLoaded', bootApplication);
+    document.addEventListener("DOMContentLoaded", function (event) {
+        bootApplication();
+    });
 }
