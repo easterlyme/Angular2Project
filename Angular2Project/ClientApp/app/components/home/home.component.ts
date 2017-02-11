@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     } 
 
     logout() {
-        this.oauthService.logOut();
+        this.oauthService.logOut(true);
     }
 
     get givenName() {
